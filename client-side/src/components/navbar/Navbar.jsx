@@ -18,9 +18,11 @@ const Navbar = () => {
         <a href="/">Agents</a>
       </div>
       <div className="right">
-        <a href="/">Login</a>
+        <a href="/" className="login">
+          Sign in
+        </a>
         <a href="/" className="register">
-          Register
+          Sign up
         </a>
         <div className="menuIcon">
           <img

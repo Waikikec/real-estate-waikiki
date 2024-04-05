@@ -62,10 +62,16 @@ nav {
     a {
       padding: 12px 24px;
       margin: 20px;
+      border-radius: 5px;
+    }
+
+    .login {
+      border: 1px solid #333;
     }
 
     .register {
-      background-color: #fece51;
+      background-color: #6ddbd8;
+      border: 1px solid #6ddbd8;
     }
 
     .menuIcon {
