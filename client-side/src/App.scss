@@ -1,7 +1,7 @@
-@import './responsive.scss';
+@import "./responsive.scss";
 
-.layout{
-  background-color: purple;
+.layout {
+  // background-color: purple;
   height: 100vh;
   max-width: 1366px;
   margin-left: auto;
@@ -9,17 +9,17 @@
   padding-left: 20px;
   padding-right: 20px;
 
-  @include lg{
+  @include lg {
     background-color: lightblue;
     max-width: 1280px;
   }
 
-  @include md{
+  @include md {
     background-color: lightgoldenrodyellow;
     max-width: 768px;
   }
 
-  @include sm{
+  @include sm {
     background-color: lightcoral;
     max-width: 640px;
   }
