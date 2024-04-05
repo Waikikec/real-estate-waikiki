@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../../components/card/Card";
 import Filter from "../../components/filter/Filter";
+import Map from "../../components/map/Map";
 import "./listPage.scss";
 
 const ListPage = () => {
@@ -14,7 +15,9 @@ const ListPage = () => {
           ))}
         </div>
       </div>
-      <div className="mapContainer">Map</div>
+      <div className="mapContainer">
+        <Map items={listData} />
+      </div>
     </div>
   );
 };

@@ -3,7 +3,6 @@ import "./Navbar.scss";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  console.log("🚀 ~ Navbar ~ open:", open);
 
   return (
     <nav>
