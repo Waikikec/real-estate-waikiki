@@ -1,28 +1,18 @@
 import React from "react";
-import Card from "../../components/card/Card";
-import Filter from "../../components/filter/Filter";
-import Map from "../../components/map/Map";
-import "./listPage.scss";
+import Card from "../card/Card";
+import "./List.scss";
 
-const ListPage = () => {
+const List = () => {
   return (
-    <div className="listPage">
-      <div className="listContainer">
-        <div className="wrapper">
-          <Filter />
-          {listData.map((item) => (
-            <Card key={item.id} item={item} />
-          ))}
-        </div>
-      </div>
-      <div className="mapContainer">
-        <Map items={listData} />
-      </div>
+    <div className="list">
+      {listData.map((item) => (
+        <Card key={item.id} item={item} />
+      ))}
     </div>
   );
 };
 
-export default ListPage;
+export default List;
 
 export const listData = [
   {

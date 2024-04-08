@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "../../components/searchBar/SearchBar";
-import "./HomePage.scss";
+import "./homePage.scss";
 
 const HomePage = () => {
   return (
