@@ -1,11 +1,23 @@
+@import "../../responsive.scss";
+
 .profile {
   display: flex;
   height: 100%;
+
+  @include md {
+    flex-direction: column;
+    overflow: auto;
+  }
 
   .details {
     flex: 3;
     overflow-y: auto;
     padding-bottom: 50px;
+
+    @include md {
+      flex: none;
+      height: max-content;
+    }
 
     .wrapper {
       padding-right: 50px;
@@ -33,7 +45,6 @@
 
       .info {
         display: flex;
-        // flex-direction: column;
         justify-content: space-between;
         gap: 20px;
 
@@ -58,8 +69,14 @@
     background-color: #fcf5f3;
     height: 100%;
 
+    // @include md {
+    //   flex: none;
+    //   height: max-content;
+    // }
+
     .wrapper {
       padding: 0px 20px;
+      height: 100%;
     }
   }
 }

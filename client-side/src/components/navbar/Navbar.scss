@@ -76,11 +76,11 @@ nav {
         border-radius: 50%;
         object-fit: cover;
         margin-right: 20px;
+      }
 
-        span {
-          @include sm {
-            display: none;
-          }
+      span {
+        @include sm {
+          display: none;
         }
       }
 
@@ -90,6 +90,10 @@ nav {
         cursor: pointer;
         border: none;
         position: relative;
+
+        @include md {
+          display: none;
+        }
 
         .notification {
           position: absolute;
