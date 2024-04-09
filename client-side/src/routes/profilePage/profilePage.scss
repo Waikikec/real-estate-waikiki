@@ -45,6 +45,7 @@
 
       .info {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         gap: 20px;
 
@@ -59,6 +60,16 @@
           width: 40px;
           border-radius: 50%;
           object-fit: cover;
+        }
+
+        button {
+          width: 100px;
+          background-color: teal;
+          color: white;
+          cursor: pointer;
+          padding: 10px 20px;
+          border-radius: 5px;
+          border: none;
         }
       }
     }
