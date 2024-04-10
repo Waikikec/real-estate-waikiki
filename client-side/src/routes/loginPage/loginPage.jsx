@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 import "./loginPage.scss";
 
 const LoginPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -25,11 +28,10 @@ const LoginPage = () => {
         password,
       });
 
-      localStorage.setItem("user", JSON.stringify(res.data));
+      updateUser(res.data);
 
       navigate("/");
     } catch (err) {
-      console.log("🚀 ~ handleSubmit ~ error:", err);
       setError(err.response.data.message);
     } finally {
       setIsLoading(false);
