@@ -8,7 +8,7 @@ import "./profileUpdatePage.scss";
 const ProfileUpdatePage = () => {
   const { currentUser, updateUser } = useContext(AuthContext);
   const [error, setError] = useState("");
-  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const [avatar, setAvatar] = useState([]);
 
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const ProfileUpdatePage = () => {
         username,
         email,
         password,
-        avatar,
+        avatar: avatar[0],
       });
 
       updateUser(res.data);
@@ -67,7 +67,7 @@ const ProfileUpdatePage = () => {
       </div>
       <div className="sideContainer">
         <img
-          src={avatar || "/noavatar.jpg"}
+          src={avatar[0] || currentUser.avatar || "/noavatar.jpg"}
           alt="avatar_image"
           className="avatarImage"
         />
@@ -80,7 +80,7 @@ const ProfileUpdatePage = () => {
             maxImageWidth: 1000,
             folder: "avatars",
           }}
-          setAvatar={setAvatar}
+          setState={setAvatar}
         />
       </div>
     </div>

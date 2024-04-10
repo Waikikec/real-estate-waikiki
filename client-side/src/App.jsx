@@ -3,6 +3,7 @@ import HomePage from "./routes/homePage/homePage";
 import { Layout, RequiredAuth } from "./routes/layout/layout";
 import ListPage from "./routes/listPage/listPage";
 import LoginPage from "./routes/loginPage/loginPage";
+import NewPostPage from "./routes/newPostPage/newPostPage";
 import ProfilePage from "./routes/profilePage/profilePage";
 import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage";
 import RegisterPage from "./routes/registerPage/registerPage";
@@ -47,6 +48,10 @@ function App() {
         {
           path: "/profile/update",
           element: <ProfileUpdatePage />,
+        },
+        {
+          path: "/add",
+          element: <NewPostPage />,
         },
       ],
     },
