@@ -30,6 +30,8 @@ export const updateUser = async (req, res) => {
   const tokenUserId = req.userId; //attached inside verifyToken.js
   const { password, avatar, ...inputs } = req.body;
 
+  console.log("🚀 ~ updateUser ~ avatar:", avatar);
+
   if (id !== tokenUserId)
     return res.status(403).json({ message: "Not Authorized!" });
 
