@@ -5,7 +5,10 @@ import Pin from "../pin/Pin";
 import "./Map.scss";
 
 const Map = ({ items }) => {
-  const position = [51.505, -0.09];
+  const position =
+    items.length === 1
+      ? [items[0].latitude, items[0].longitude]
+      : [42.7339, 25.4858];
 
   return (
     <MapContainer
