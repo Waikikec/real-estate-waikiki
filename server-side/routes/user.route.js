@@ -3,6 +3,7 @@ import {
   deleteUser,
   getUser,
   getUsers,
+  savePost,
   updateUser,
 } from "../controllers/user.controller.js";
 
@@ -14,5 +15,6 @@ userRoute.get("/", getUsers);
 userRoute.get("/:id", verifyToken, getUser);
 userRoute.put("/:id", verifyToken, updateUser);
 userRoute.delete("/:id", verifyToken, deleteUser);
+userRoute.post("/save", verifyToken, savePost);
 
 export default userRoute;
