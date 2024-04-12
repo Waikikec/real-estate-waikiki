@@ -20,9 +20,10 @@ const SinglePage = () => {
     }
 
     try {
-      await apiRequest.post("/user/save");
+      await apiRequest.post("/users/save", { postId: post.id });
     } catch (err) {
       console.log(err);
+      setSavedPost((prev) => !prev);
     }
   };
 

@@ -27,7 +27,6 @@ export const getPosts = async (req, res) => {
 
 export const getPost = async (req, res) => {
   const id = req.params.id;
-
   try {
     const post = await prisma.post.findUnique({
       where: { id },
@@ -59,7 +58,6 @@ export const getPost = async (req, res) => {
         }
       });
     }
-
     res.status(200).json({ ...post, isSaved: false });
   } catch (err) {
     console.log(err);

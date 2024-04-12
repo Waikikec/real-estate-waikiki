@@ -79,9 +79,6 @@ export const savePost = async (req, res) => {
   const postId = req.body.postId;
   const tokenUserId = req.userId; //attached inside verifyToken.js
 
-  if (id !== tokenUserId)
-    return res.status(403).json({ message: "Not Authorized!" });
-
   try {
     const savedPost = await prisma.savedPost.findUnique({
       where: {
@@ -111,5 +108,28 @@ export const savePost = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to delete user!" });
+  }
+};
+
+export const profilePosts = async (req, res) => {
+  const tokenUserId = req.userId;
+
+  try {
+    const userPosts = await prisma.post.findMany({
+      where: { userId: tokenUserId },
+    });
+
+    const savedPosts = await prisma.savedPost.findMany({
+      where: { userId: tokenUserId },
+      include: {
+        post: true,
+      },
+    });
+
+    const filterSavedPosts = savedPosts.map((item) => item.post);
+    res.status(200).json({ userPosts, filterSavedPosts });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to get user posts!" });
   }
 };

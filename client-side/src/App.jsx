@@ -1,5 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { listPageLoader, singlePageLoader } from "./lib/loaders";
+import {
+  listPageLoader,
+  profilePageLoader,
+  singlePageLoader,
+} from "./lib/loaders";
 import HomePage from "./routes/homePage/homePage";
 import { Layout, RequiredAuth } from "./routes/layout/layout";
 import ListPage from "./routes/listPage/listPage";
@@ -47,6 +51,7 @@ function App() {
         {
           path: "/profile",
           element: <ProfilePage />,
+          loader: profilePageLoader,
         },
         {
           path: "/profile/update",
