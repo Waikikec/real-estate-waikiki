@@ -1,111 +1,103 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { format } from "timeago.js";
+import { AuthContext } from "../../context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 import "./Chat.scss";
 
-const Chat = () => {
-  const [chat, setChat] = useState(true);
+const Chat = ({ chats }) => {
+  const [currentChat, setCurrentChat] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+
+  const handleOpenChat = async (id, receiver) => {
+    try {
+      const res = await apiRequest("/chats/" + id);
+      setCurrentChat({ ...res.data, receiver });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSubmitMessage = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const text = formData.get("chatInput");
+    if (!text) return;
+
+    try {
+      const res = await apiRequest.post("/messages/" + currentChat.id, {
+        text,
+      });
+      setCurrentChat((prev) => ({
+        ...prev,
+        messages: [...prev.messages, res.data],
+      }));
+      event.target.reset();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="chat">
       <div className="messages">
-        <div className="message">
-          <img
-            src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-          <span>Martin Yankov</span>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            ex!
-          </p>
-        </div>
-        <div className="message">
-          <img
-            src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-          <span>Martin Yankov</span>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            ex!
-          </p>
-        </div>
-        <div className="message">
-          <img
-            src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-          <span>Martin Yankov</span>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            ex!
-          </p>
-        </div>
-        <div className="message">
-          <img
-            src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-          <span>Martin Yankov</span>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            ex!
-          </p>
-        </div>
+        {chats.map((c) => (
+          <div
+            className="message"
+            key={c.id}
+            style={{
+              backgroundColor: c.seenBy.includes(currentUser.id)
+                ? "white"
+                : "#fecd514e",
+            }}
+            onClick={() => handleOpenChat(c.id, c.receiver)}
+          >
+            <img src={c.receiver.avatar || "/noavatar.jpg"} alt="" />
+            <span>{c.receiver.username}</span>
+            <p>{c.lastMessage}</p>
+          </div>
+        ))}
       </div>
 
-      {chat && (
+      {currentChat && (
         <div className="chatBox">
           <div className="top">
             <div className="user">
               <img
-                src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                src={currentChat.receiver.avatar || "/noavatar.jpg"}
                 alt=""
               />
-              Martin Yankov
+              {currentChat.receiver.username}
             </div>
-            <span className="close" onClick={() => setChat(false)}>
+            <span className="close" onClick={() => setCurrentChat(false)}>
               X
             </span>
           </div>
 
           <div className="center">
-            <div className="chatMessage">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quaerat, reiciendis.
-              </p>
-              <span>1 hour ago</span>
-            </div>
-
-            <div className="chatMessage own">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quaerat, reiciendis.
-              </p>
-              <span>1 hour ago</span>
-            </div>
-
-            <div className="chatMessage">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quaerat, reiciendis.
-              </p>
-              <span>1 hour ago</span>
-            </div>
-
-            <div className="chatMessage own">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quaerat, reiciendis.
-              </p>
-              <span>1 hour ago</span>
-            </div>
+            {currentChat.messages.map((message) => (
+              <div
+                className="chatMessage"
+                style={{
+                  alignSelf:
+                    message.userId === currentUser.Id
+                      ? "flex-end"
+                      : "flex-start",
+                  textAlign:
+                    message.userId === currentUser.Id ? "right" : "left",
+                }}
+                key={message.id}
+              >
+                <p>{message.text}</p>
+                <span>{format(message.createdAt)}</span>
+              </div>
+            ))}
           </div>
 
-          <div className="bottom">
+          <form onSubmit={handleSubmitMessage} className="bottom">
             <textarea name="chatInput" id="chatInput" />
             <button>Send</button>
-          </div>
+          </form>
         </div>
       )}
     </div>

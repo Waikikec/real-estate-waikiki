@@ -26,7 +26,6 @@ const RegisterPage = () => {
         email,
         password,
       });
-      console.log("🚀 ~ handleSubmit ~ res:", res);
 
       navigate("/login");
     } catch (err) {
