@@ -21,7 +21,7 @@ const RegisterPage = () => {
     const password = formData.get("password");
 
     try {
-      const res = await apiRequest.post("/auth/register", {
+      await apiRequest.post("/auth/register", {
         username,
         email,
         password,

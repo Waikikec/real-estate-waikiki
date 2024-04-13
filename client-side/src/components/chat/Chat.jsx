@@ -1,12 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { format } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
+import { SocketContext } from "../../context/SocketContext";
 import apiRequest from "../../lib/apiRequest";
 import "./Chat.scss";
 
 const Chat = ({ chats }) => {
   const [currentChat, setCurrentChat] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
 
   const handleOpenChat = async (id, receiver) => {
     try {
@@ -33,10 +35,39 @@ const Chat = ({ chats }) => {
         messages: [...prev.messages, res.data],
       }));
       event.target.reset();
+      socket.emit("sendMessage", {
+        receiverId: currentChat.receiver.id,
+        data: res.data,
+      });
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const read = async () => {
+      try {
+        await apiRequest.put("/chats/read/" + currentChat.id);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (currentChat && socket) {
+      socket.on("getMessage", (data) => {
+        if (currentChat.id === data.chatId) {
+          setCurrentChat((prev) => ({
+            ...prev,
+            messages: [...prev.messages, data],
+          }));
+          read();
+        }
+      });
+    }
+    return () => {
+      socket.off("getMessage");
+    };
+  }, [currentChat, socket]);
 
   return (
     <div className="chat">
@@ -46,9 +77,10 @@ const Chat = ({ chats }) => {
             className="message"
             key={c.id}
             style={{
-              backgroundColor: c.seenBy.includes(currentUser.id)
-                ? "white"
-                : "#fecd514e",
+              backgroundColor:
+                c.seenBy.includes(currentUser.id) || c.id === currentChat.id
+                  ? "white"
+                  : "#fecd514e",
             }}
             onClick={() => handleOpenChat(c.id, c.receiver)}
           >
