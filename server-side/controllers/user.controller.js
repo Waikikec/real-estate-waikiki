@@ -138,10 +138,10 @@ export const getNotifications = async (req, res) => {
   const tokenUserId = req.userId;
 
   try {
-    const chatsCount = await prisma.chat.count({
+    const number = await prisma.chat.count({
       where: {
         userIDs: {
-          has: tokenUserId,
+          hasSome: [tokenUserId],
         },
         NOT: {
           seenBy: {
@@ -151,7 +151,7 @@ export const getNotifications = async (req, res) => {
       },
     });
 
-    res.status(200).json(chatsCount);
+    res.status(200).json(number);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get notifications!" });
