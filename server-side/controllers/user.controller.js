@@ -68,10 +68,10 @@ export const deleteUser = async (req, res) => {
       where: { id },
     });
 
-    res.status(200).json({ message: "User deleted!" });
+    return res.status(200).json({ message: "User deleted!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to delete user!" });
+    return res.status(500).json({ message: "Failed to delete user!" });
   }
 };
 
@@ -95,7 +95,7 @@ export const savePost = async (req, res) => {
           id: savedPost.id,
         },
       });
-      res.status(200).json({ message: "Post removed from favourites!" });
+      return res.status(200).json({ message: "Post removed from favourites!" });
     } else {
       await prisma.savedPost.create({
         data: {
@@ -103,11 +103,11 @@ export const savePost = async (req, res) => {
           postId,
         },
       });
-      res.status(200).json({ message: "Post added to favourites!" });
+      return res.status(200).json({ message: "Post added to favourites!" });
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to delete user!" });
+    return res.status(500).json({ message: "Failed to delete user!" });
   }
 };
 
@@ -127,10 +127,10 @@ export const profilePosts = async (req, res) => {
     });
 
     const filterSavedPosts = savedPosts.map((item) => item.post);
-    res.status(200).json({ userPosts, filterSavedPosts });
+    return res.status(200).json({ userPosts, filterSavedPosts });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get user posts!" });
+    return res.status(500).json({ message: "Failed to get user posts!" });
   }
 };
 
@@ -151,9 +151,9 @@ export const getNotifications = async (req, res) => {
       },
     });
 
-    res.status(200).json(number);
+    return res.status(200).json(number);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get notifications!" });
+    return res.status(500).json({ message: "Failed to get notifications!" });
   }
 };

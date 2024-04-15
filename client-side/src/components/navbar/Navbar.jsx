@@ -24,7 +24,7 @@ const Navbar = () => {
         <a href="/">Home</a>
         <a href="/">About</a>
         <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        <Link to="/List">List</Link>
       </div>
       <div className="right">
         {currentUser ? (

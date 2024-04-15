@@ -18,10 +18,10 @@ export const getPosts = async (req, res) => {
       },
     });
 
-    res.status(200).json(posts);
+    return res.status(200).json(posts);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get posts" });
+    return res.status(500).json({ message: "Failed to get posts" });
   }
 };
 
@@ -54,14 +54,20 @@ export const getPost = async (req, res) => {
               },
             },
           });
-          res.status(200).json({ ...post, isSaved: saved ? true : false });
+
+          return res
+            .status(200)
+            .json({ ...post, isSaved: saved ? true : false });
+        } else {
+          return res.status(200).json({ ...post, isSaved: false });
         }
       });
+    } else {
+      return res.status(200).json({ ...post, isSaved: false });
     }
-    res.status(200).json({ ...post, isSaved: false });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get post" });
+    return res.status(500).json({ message: "Failed to get post" });
   }
 };
 
@@ -88,10 +94,10 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    res.status(200).json({ message: "" });
+    return res.status(200).json({ message: "" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to update post" });
+    return res.status(500).json({ message: "Failed to update post" });
   }
 };
 
@@ -112,9 +118,9 @@ export const deletePost = async (req, res) => {
       where: { id },
     });
 
-    res.status(200).json({ message: "Post deleted!" });
+    return res.status(200).json({ message: "Post deleted!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to delete post" });
+    return res.status(500).json({ message: "Failed to delete post" });
   }
 };
