@@ -17,6 +17,13 @@
 
 # Screenshots
 
+![1](https://github.com/Waikikec/real-estate-waikiki/assets/19924074/1e2cd2b7-e77c-4428-9b43-7a6b591ee437)
+![5](https://github.com/Waikikec/real-estate-waikiki/assets/19924074/c5a94223-382b-42b8-971c-0526f336a736)
+![0](https://github.com/Waikikec/real-estate-waikiki/assets/19924074/470739fd-99fb-4591-8f0f-4dcd8cafe884)
+![6](https://github.com/Waikikec/real-estate-waikiki/assets/19924074/3f389760-e7c9-4d7e-922f-bbe870514a03)
+![2](https://github.com/Waikikec/real-estate-waikiki/assets/19924074/96c82825-752c-4ccc-a9f1-e039545e692b)
+
+
 
 # Quick Start
 
