@@ -1,4 +1,4 @@
-# Javascript Web Module November 2021 SoftUni
+# Real Estate FullStack Application
 
 ![MERN](https://raw.githubusercontent.com/miles-till/easy-mern-stack/master/media/mern.png)
 
